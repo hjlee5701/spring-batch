@@ -22,8 +22,23 @@ repositories {
 }
 
 dependencies {
+	// Spring Batch
 	implementation 'org.springframework.boot:spring-boot-starter-batch'
+
+	// 스프링 웹
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+	// Spring Batch
+	implementation 'org.springframework.boot:spring-boot-starter-batch'
+
+	// DB & ORM -> H2, Spring Data JPA -> MariaDB, Mybatis
+	implementation 'com.h2database:h2'
+//	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+	implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '3.1.4'
+	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
+
+	// 롬복
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
