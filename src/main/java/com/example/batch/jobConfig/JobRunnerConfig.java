@@ -25,6 +25,9 @@ public class JobRunnerConfig {
     @Qualifier("multiStepJob")
     private Job multiJob;
 
+    @Autowired
+    @Qualifier("chunkStepJob")
+    private Job chunkJob;
 
     @Scheduled(cron = "0 0/1 * * * ?") // 매 1분마다 실행
     public void scheduleJob1() {
@@ -49,4 +52,15 @@ public class JobRunnerConfig {
         }
     }
 
+    @Scheduled(cron = "0 0/1 * * * ?") // 매 1분마다 실행
+    public void scheduleJob3() {
+        try {
+            log.info("Start Scheduled Job >>> Chunk Step Job");
+            jobLauncher.run(chunkJob, new JobParametersBuilder()
+                    .addLong("startAt", System.currentTimeMillis())
+                    .toJobParameters());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
