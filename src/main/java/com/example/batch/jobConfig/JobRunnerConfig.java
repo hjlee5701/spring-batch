@@ -21,6 +21,11 @@ public class JobRunnerConfig {
     @Qualifier("singleStepJob")
     private Job singleJob;
 
+    @Autowired
+    @Qualifier("multiStepJob")
+    private Job multiJob;
+
+
     @Scheduled(cron = "0 0/1 * * * ?") // 매 1분마다 실행
     public void scheduleJob1() {
         try {
@@ -32,4 +37,16 @@ public class JobRunnerConfig {
             e.printStackTrace();
         }
     }
+    @Scheduled(cron = "0 0/5 * * * ?") // 매 5분마다 실행
+    public void scheduleJob2(){
+        log.info("Start Scheduled Job >>> Multi Step Job");
+        try {
+            jobLauncher.run(multiJob, new JobParametersBuilder()
+                    .addLong("startAt", System.currentTimeMillis())
+                    .toJobParameters());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }
