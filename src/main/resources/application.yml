@@ -1,0 +1,7 @@
+# MariaDB 연결
+spring:
+  profiles:
+    active: maria
+#logging:
+#  level:
+#    root: debug

@@ -1,0 +1,47 @@
+spring:
+# 빈 정의 충돌을 방지 : 두개 이상의 Job 설정할 경우 false -> bean 이름 설정 후 ture 로 변경
+#  main:
+#    allow-bean-definition-overriding: true
+  batch:
+# 테이블 자동 생성
+#    jdbc:
+#      initialize-schema: always
+
+# 애플리케이션이 시작될 때 Job 자동 실행 / Scheduled 가 있다면 false 설정하기
+    job:
+      enabled: false
+#      name : singleStepJob
+      datasource:
+        jdbc-url: jdbc:mariadb://localhost:3306/batch?allowPublicKeyRetrieval=true&useSSL=false
+        username: root
+        password: PWD
+        driver-class-name: org.mariadb.jdbc.Driver
+
+extra-datasource:
+  user:
+    datasource:
+      driver-class-name: org.mariadb.jdbc.Driver
+      jdbc-url: jdbc:mariadb://localhost:3306/user?allowPublicKeyRetrieval=true&useSSL=false
+      username: root
+      password: PWD
+
+#    job:
+#      datasource:
+#        driver-class-name: org.mariadb.jdbc.Driver
+#        jdbc-url: jdbc:mariadb://localhost:3306/batch?allowPublicKeyRetrieval=true&useSSL=false
+#        username: root
+#        password: PWD
+
+# Job table 자동 생성 by JPA
+#  jpa:
+#    hibernate:
+#      ddl-auto: create
+#    properties:
+#      hibernate:
+#        show_sql: true
+#        format_sql: true
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+  type-aliases-package: com.example.batch.*
